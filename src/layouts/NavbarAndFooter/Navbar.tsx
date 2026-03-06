@@ -1,5 +1,4 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { SpinnerLoading } from "../Utils/SpinnerLoading";
 import { useAuth } from "../../contexts/AuthContext";
 
 export const Navbar = () => {

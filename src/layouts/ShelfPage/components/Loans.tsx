@@ -73,7 +73,7 @@ export const Loans = () => {
         
         const token = authService.getToken();
         const url = `${API_BASE_URL}/api/books/secure/return?userEmail=${userEmail}&bookId=${bookId}`;
-        const returnResponse = await axios.put(url, null, {
+        await axios.put(url, null, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -90,7 +90,7 @@ export const Loans = () => {
         
         const token = authService.getToken();
         const url = `${API_BASE_URL}/api/books/secure/renew/loan?userEmail=${userEmail}&bookId=${bookId}`;
-        const returnResponse = await axios.put(url, null, {
+        await axios.put(url, null, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
