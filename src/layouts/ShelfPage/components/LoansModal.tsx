@@ -1,13 +1,7 @@
 import ShelfCurrentLoans from "../../../models/ShelfCurrentLoans";
-import placeholderImg from './../../../Images/BooksImages/book-luv2code-1000.png';
-import { formatImageSrc } from '../../../Utils/ImageUtils';
 
 export const LoansModal: React.FC<{ shelfCurrentLoan: ShelfCurrentLoans, mobile: boolean, returnBook: any,
     renewLoan: any }> = (props) => {
-    const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-        e.currentTarget.src = placeholderImg;
-    };
-
     return (
         <div className='modal fade' id={props.mobile ? `mobilemodal${props.shelfCurrentLoan.book.id}` : 
             `modal${props.shelfCurrentLoan.book.id}`} data-bs-backdrop='static' data-bs-keyboard='false' 
@@ -26,8 +20,13 @@ export const LoansModal: React.FC<{ shelfCurrentLoan: ShelfCurrentLoans, mobile:
                                 <div className='mt-3'>
                                     <div className='row'>
                                         <div className='col-2'>
-                                            <img src={formatImageSrc(props.shelfCurrentLoan.book?.img) || placeholderImg} 
-                                                width='56' height='87' alt='Book' onError={handleImageError}/>
+                                            {props.shelfCurrentLoan.book?.img ?
+                                                <img src={props.shelfCurrentLoan.book?.img} 
+                                                    width='56' height='87' alt='Book'/>
+                                                :
+                                                <img src={require('./../../../Images/BooksImages/book-luv2code-1000.png')} 
+                                                    width='56' height='87' alt='Book'/>
+                                            }
                                         </div>
                                         <div className='col-10'>
                                             <h6>{props.shelfCurrentLoan.book.author}</h6>

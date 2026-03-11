@@ -1,17 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import authService from '../../../services/authService';
 import HistoryModel from '../../../models/HistoryModel';
 import { Pagination } from '../../Utils/Pagination';
 import { SpinnerLoading } from '../../Utils/SpinnerLoading';
-import placeholderImg from './../../../Images/BooksImages/book-luv2code-1000.png';
-import { formatImageSrc } from '../../../Utils/ImageUtils';
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://library-ms-springboot-react-jwt-bs-ts.onrender.com';
+import { useAuth } from '../../../contexts/AuthContext';
 
 export const HistoryPage = () => {
     
+    const { user, isAuthenticated } = useAuth();
     const [isLoadingHistory, setIsLoadingHistory] = useState(true);
     const [httpError, setHttpError] = useState(null);
 
@@ -22,29 +18,25 @@ export const HistoryPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
 
-    const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-        e.currentTarget.src = placeholderImg;
-    };
-
     useEffect(() => {
         const fetchUserHistory = async () => {
-            const userEmail = authService.getUserEmail();
-            if (!userEmail) {
-                return;
-            }
-            
-            const token = authService.getToken();
-            const url = `${API_BASE_URL}/api/histories/search/findBooksByUserEmail?userEmail=${userEmail}&page=${currentPage - 1}&size=5`;
-            const historyResponse = await axios.get(url, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
+            if (isAuthenticated && user?.email) {
+                const url = `http://localhost:8080/api/histories/search/findBooksByUserEmail/?userEmail=${user.email}&page=${currentPage - 1}&size=5`;
+                const requestOptions = {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                };
+                const historyResponse = await fetch(url, requestOptions);
+                if (!historyResponse.ok) {
+                    throw new Error('Something went wrong!');
                 }
-            });
-            const historyResponseJson = historyResponse.data;
+                const historyResponseJson = await historyResponse.json();
 
-            setHistories(historyResponseJson._embedded.histories);
-            setTotalPages(historyResponseJson.page.totalPages);
+                setHistories(historyResponseJson._embedded.histories);
+                setTotalPages(historyResponseJson.page.totalPages);
+            }
             setIsLoadingHistory(false);
 
         }
@@ -52,7 +44,7 @@ export const HistoryPage = () => {
             setIsLoadingHistory(false);
             setHttpError(error.message);
         })
-    }, [currentPage]);
+    }, [isAuthenticated, user, currentPage]);
 
     if (isLoadingHistory) {
         return (
@@ -82,10 +74,20 @@ export const HistoryPage = () => {
                             <div className='row g-0'>
                                 <div className='col-md-2'>
                                     <div className='d-none d-lg-block'>
-                                        <img src={formatImageSrc(history.img) || placeholderImg} width='123' height='196' alt='Book' onError={handleImageError} />
+                                        {history.img ? 
+                                            <img src={history.img} width='123' height='196' alt='Book' />
+                                            :
+                                            <img src={require('./../../../Images/BooksImages/book-luv2code-1000.png')} 
+                                                width='123' height='196' alt='Default'/>
+                                        }
                                     </div>
                                     <div className='d-lg-none d-flex justify-content-center align-items-center'>
-                                        <img src={formatImageSrc(history.img) || placeholderImg} width='123' height='196' alt='Book' onError={handleImageError} />
+                                        {history.img ? 
+                                            <img src={history.img} width='123' height='196' alt='Book' />
+                                            :
+                                            <img src={require('./../../../Images/BooksImages/book-luv2code-1000.png')} 
+                                                width='123' height='196' alt='Default'/>
+                                        }
                                     </div>
                                 </div>
                                 <div className='col'>
