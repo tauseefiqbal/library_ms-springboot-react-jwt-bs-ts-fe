@@ -11,6 +11,7 @@ import { MessagesPage } from './layouts/MessagesPage/MessagesPage';
 import { ManageLibraryPage } from './layouts/ManageLibraryPage/ManageLibraryPage';
 import { LoginPage } from './layouts/LoginPage/LoginPage';
 import { RegisterPage } from './layouts/RegisterPage/RegisterPage';
+import { CreateAdminPage } from './layouts/CreateAdminPage/CreateAdminPage';
 
 export const App = () => {
   return (
@@ -28,6 +29,7 @@ export const App = () => {
           <Route path='/shelf' element={<ShelfPage />} />
           <Route path='/messages' element={<MessagesPage />} />
           <Route path='/admin' element={<ManageLibraryPage />} />
+          <Route path='/create-admin' element={<CreateAdminPage />} />
         </Routes>
       </div>
       <Footer />
