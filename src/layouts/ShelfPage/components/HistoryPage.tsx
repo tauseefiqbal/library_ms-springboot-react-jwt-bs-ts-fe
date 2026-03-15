@@ -25,7 +25,7 @@ export const HistoryPage = () => {
         const fetchUserHistory = async () => {
             if (isAuthenticated && user?.email) {
                 const token = authService.getToken();
-                const url = `${API_BASE_URL}/api/histories/search/findBooksByUserEmail/?userEmail=${user.email}&page=${currentPage - 1}&size=5`;
+                const url = `${API_BASE_URL}/api/histories/search/findBooksByUserEmail?userEmail=${user.email}&page=${currentPage - 1}&size=5`;
                 const requestOptions = {
                     method: 'GET',
                     headers: {
