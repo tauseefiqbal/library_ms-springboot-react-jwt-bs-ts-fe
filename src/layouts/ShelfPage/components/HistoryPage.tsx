@@ -4,6 +4,9 @@ import HistoryModel from '../../../models/HistoryModel';
 import { Pagination } from '../../Utils/Pagination';
 import { SpinnerLoading } from '../../Utils/SpinnerLoading';
 import { useAuth } from '../../../contexts/AuthContext';
+import authService from '../../../services/authService';
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://library-ms-springboot-react-jwt-bs-ts.onrender.com';
 
 export const HistoryPage = () => {
     
@@ -21,11 +24,13 @@ export const HistoryPage = () => {
     useEffect(() => {
         const fetchUserHistory = async () => {
             if (isAuthenticated && user?.email) {
-                const url = `http://localhost:8080/api/histories/search/findBooksByUserEmail/?userEmail=${user.email}&page=${currentPage - 1}&size=5`;
+                const token = authService.getToken();
+                const url = `${API_BASE_URL}/api/histories/search/findBooksByUserEmail/?userEmail=${user.email}&page=${currentPage - 1}&size=5`;
                 const requestOptions = {
                     method: 'GET',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
                     }
                 };
                 const historyResponse = await fetch(url, requestOptions);
