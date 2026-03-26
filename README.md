@@ -118,7 +118,7 @@ A full-stack library management application built with **React** (TypeScript + V
 
 The application is deployed and available at:
 
-> **https://library-ms-springboot-react-jwt-bs-ts-fe.onrender.com/home**
+> **https://library-ms-springboot-react-jwt-bs-ts-fe.onrender.com**
 
 | Component | URL |
 |---|---|
@@ -145,9 +145,9 @@ The following accounts are pre-configured for testing the application:
 
 | Name | Email | Password | Role |
 |---|---|---|---|
-| Alice Johnson | `alice@testmail.com` | `test123` | User |
-| Bob Smith | `bob@testmail.com` | `test123` | User |
-| Carol Davis | `carol@testmail.com` | `test123` | User |
+| Alice Johnson | `alice@libraryms.com` | `test1234` | User |
+| Bob Smith | `bob@libraryms.com` | `test1234` | User |
+| Carol Davis | `carol@libraryms.com` | `test1234` | User |
 
 Each test user has:
 - **Active book loans** — visible on the Shelf → Loans tab
@@ -159,7 +159,7 @@ Each test user has:
 
 ### Getting Started
 
-1. Open the application in your browser — use the [live deployment](https://library-ms-springboot-react-jwt-bs-ts-fe.onrender.com/home) or the local dev server (default: `http://localhost:5173`).
+1. Open the application in your browser — use the [live deployment](https://library-ms-springboot-react-jwt-bs-ts-fe.onrender.com) or the local dev server (default: `http://localhost:5173`).
 2. Click **Sign In** in the navbar to log in, or click **Register** to create a new account.
 3. Fill in your name, email, and password, then submit the registration form.
 4. After logging in, you will be redirected to the **Home** page.
@@ -333,12 +333,12 @@ The frontend will start on `http://localhost:5173` (or another port if 5173 is o
 3. Restart both servers for changes to take effect.
 
 ---
-
+create-admin.htmlcreate-admin.html
 ## 👑 Creating an Admin User
 
 After the backend is running:
 
-1. Open `create-admin.html` (located at the project root) in your browser.
+1. Open `create-admin.html` (located in `backend/spring-boot-library/` or `frontend/react-library/`) in your browser.
 2. If your backend is not on port 8080, edit the `API_BASE_URL` variable inside the file first.
 3. Click **Create Admin**.
 4. Save the generated email and password — you will need them to log in as admin.
@@ -351,7 +351,6 @@ Alternatively, navigate to `/create-admin` in the frontend app to use the in-app
 
 ```
 library_ms/
-├── create-admin.html                 # Standalone admin creation tool
 ├── README.md
 ├── backend/
 │   └── spring-boot-library/          # Spring Boot application
