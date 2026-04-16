@@ -241,8 +241,8 @@ Before running this application, ensure you have the following installed:
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
-cd library_ms
+git clone https://github.com/tauseefiqbal/library_ms-springboot-react-jwt-bs-ts-fe.git
+cd library_ms-springboot-react-jwt-bs-ts-fe
 ```
 
 ### 2. Database Setup
